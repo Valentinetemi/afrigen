@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
     return result.toTextStreamResponse()
   } catch (error) {
-    console.error('[v0] Generate error:', error)
+    console.error('Generate error:', error)
     return new Response(
       JSON.stringify({
         error: 'Failed to generate synthetic data',
