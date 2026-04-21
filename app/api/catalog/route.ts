@@ -18,7 +18,7 @@ export async function GET() {
       })),
     })
   } catch (error) {
-    console.error('[v0] Catalog GET error:', error)
+    console.error('Catalog GET error:', error)
     return Response.json({ error: 'Failed to fetch catalog' }, { status: 500 })
   }
 }
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 
     return Response.json({ dataset })
   } catch (error) {
-    console.error('[v0] Catalog POST error:', error)
+    console.error(' Catalog POST error:', error)
     return Response.json({ error: 'Failed to add dataset' }, { status: 500 })
   }
 }
