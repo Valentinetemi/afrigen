@@ -5,7 +5,7 @@ const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMINI_API_KEY!,
 })
 
-const model = google('gemini-2.0-flash')
+const model = google('gemini-flash-lite')
 
 export async function streamSyntheticDataGeneration(prompt: string) {
   const systemPrompt = `You are a synthetic data generation expert specializing in African contexts.
