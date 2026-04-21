@@ -82,11 +82,11 @@ export default function GeneratePage() {
             }),
           })
         } catch (err) {
-          console.error('[v0] Failed to add to catalog:', err)
+          console.error('Failed to add to catalog:', err)
         }
       }
     } catch (error) {
-      console.error('[v0] Generation error:', error)
+      console.error(' Generation error:', error)
       setStreamContent('Error: Failed to generate data. Please try again.')
     } finally {
       setIsStreaming(false)
