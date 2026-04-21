@@ -143,7 +143,7 @@ export default function DataQualityPage() {
               </li>
               <li className="flex gap-2">
                 <span className="text-primary">✓</span>
-                <span>Receive AI-powered recommendations for data improvement</span>
+                <span>Receive AI-powered recommendations for data improvement.</span>
               </li>
             </ul>
           </motion.div>
