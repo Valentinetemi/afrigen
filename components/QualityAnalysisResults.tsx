@@ -10,6 +10,9 @@ import {
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 
+const [cleaning, setCleaning] = useState(false)
+const [cleanedCsv, setCleanedCsv] = useState<string | null>(null)
+
 interface QualityAnalysisResultsProps {
   analysis: QualityAnalysisResult
   onDownloadReport?: () => void
