@@ -141,7 +141,7 @@ export default function GeneratePage() {
               <GenerateInput onSubmit={handleGenerate} isLoading={isStreaming} />
               <div className="border-t border-border pt-4">
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  💡 <strong>Pro tip:</strong> Specify African countries, real place names,
+                  💡 <strong>Pro tip:</strong>Please specify African countries, real place names,
                   authentic demographics, and domain-specific indicators for best results.
                 </p>
               </div>
