@@ -144,15 +144,12 @@ export default function GeneratePage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.35 }}
+              transition={{ duration: 0.35 }} 
               className="flex flex-col items-center"
             >
               {/* Page title */}
               <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 border border-green-100 mb-4">
-                  <Sparkles className="w-3.5 h-3.5 text-green-600" />
-                  <span className="text-xs font-semibold text-green-700">AI-Powered Synthetic Data</span>
-                </div>
+    
                 <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
                   Generate African Datasets
                 </h1>
