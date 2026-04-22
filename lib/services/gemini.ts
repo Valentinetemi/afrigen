@@ -5,7 +5,7 @@ const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMINI_API_KEY!,
 })
 
-const model = google('gemini-flash-latest')
+const model = google('gemini-2.0-flash-lite-001')
 
 // ─── African context knowledge base ───────────────────────────────────────────
 
