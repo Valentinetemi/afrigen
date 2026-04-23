@@ -238,6 +238,22 @@ export async function calculateFidelityScore(
   country: string,
   referenceData: string
 ): Promise<{ score: number; justification: string }> {
+  function getCompleteness(csv: string) {
+    const rows = csv.split('\n').filter(Boolean)
+  
+    let total = 0
+    let filled = 0
+  
+    rows.forEach(r => {
+      r.split(',').forEach(cell => {
+        total++
+        if (cell.trim() !== '') filled++
+      })
+    })
+  
+    return (filled / total) * 100
+  }
+
   function sampleRows(csv: string, n = 20) {
     const rows = csv.split('\n').filter(Boolean)
     const header = rows[0]
@@ -246,7 +262,8 @@ export async function calculateFidelityScore(
     const shuffled = body.sort(() => 0.5 - Math.random())
     return [header, ...shuffled.slice(0, n)].join('\n')
   }
-  const rows = sampleRows
+  const rows = sampleRows(csvData, 20)
+
   const { text } = await generateText({
     model,
     prompt: `You are an African data scientist evaluating synthetic data quality.
@@ -273,10 +290,19 @@ Return ONLY valid JSON, nothing else:
 
   try {
     const clean = text.replace(/```json|```/g, '').trim()
+
+    const llmResult = JSON.parse(clean)
+
+    const completeness = getCompleteness(csvData)
+
+    const finalScore = Math.round(
+      0.8 * llmResult.score + 0.2 * completeness
+    )
     return JSON.parse(clean)
   } catch {
     return { score: 75, justification: 'Unable to calculate fidelity score' }
   }
+ 
 }
 
 // - Single exported function - merges structured prompt and reference data -
