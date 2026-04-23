@@ -135,6 +135,29 @@ export default function GeneratePage() {
         })
       }
 
+      // Calculate real fidelity score
+const fidelityRes = await fetch('/api/fidelity', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ csvData: buffer, prompt, domain, country })
+})
+const { score, justification } = await fidelityRes.json()
+
+// Then register in OpenMetadata with real score
+await fetch('/api/metadata', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name: `${domain} Dataset - ${country}`,
+    domain,
+    country,
+    rowCount: jsonData.length,
+    columns: parsedHeaders,
+    fidelityScore: score,
+    prompt,
+  })
+})
+
       const jsonData = csvToJSON(buffer)
       const parsedHeaders = jsonData.length > 0 ? Object.keys(jsonData[0]) : []
       const domain = extractDomain(prompt)
