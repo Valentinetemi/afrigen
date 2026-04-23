@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 interface GenerateInputProps {
   onSubmit: (prompt: string) => Promise<void>
   isLoading?: boolean
+  initialPrompt?: string
+  onPromptChange?: (prompt: string) => void
 }
 
 const DOMAINS = [
@@ -76,8 +78,18 @@ function useTypewriter(strings: string[], speed = 32, pause = 2600) {
   return display
 }
 
-export function GenerateInput({ onSubmit, isLoading = false }: GenerateInputProps) {
-  const [prompt, setPrompt] = useState('')
+export function GenerateInput({ 
+  onSubmit, 
+  isLoading = false,
+  initialPrompt = '',
+  onPromptChange
+}: GenerateInputProps) {
+  const [prompt, setPrompt] = useState(initialPrompt)
+
+  useEffect(() => {
+    setPrompt(initialPrompt)
+  }, [initialPrompt])
+
   const [domain, setDomain] = useState('')
   const [country, setCountry] = useState('Nigeria')
   const [rows, setRows] = useState(1000)
@@ -85,6 +97,11 @@ export function GenerateInput({ onSubmit, isLoading = false }: GenerateInputProp
   const ref = useRef<HTMLTextAreaElement>(null)
   const placeholder = useTypewriter(PLACEHOLDERS)
   const warning = getWarning(prompt)
+
+  const handlePromptChange = (val: string) => {
+    setPrompt(val)
+    onPromptChange?.(val)
+  }
 
   const checks = [
     { ok: !/patient.{0,10}name/i.test(prompt), label: 'No raw patient names' },
@@ -96,7 +113,6 @@ export function GenerateInput({ onSubmit, isLoading = false }: GenerateInputProp
   const submit = async () => {
     if (!prompt.trim() || isLoading) return
     await onSubmit(buildPrompt(prompt, domain, country, rows))
-    setPrompt('')
   }
 
   const onKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -145,7 +161,7 @@ export function GenerateInput({ onSubmit, isLoading = false }: GenerateInputProp
           <textarea
             ref={ref}
             value={prompt}
-            onChange={e => setPrompt(e.target.value)}
+            onChange={e => handlePromptChange(e.target.value)}
             onKeyDown={onKey}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}

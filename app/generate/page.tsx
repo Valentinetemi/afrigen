@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Navbar } from '@/components/Navbar'
@@ -56,6 +56,7 @@ function StreamingHeader({ rowCount, isStreaming }: { rowCount: number; isStream
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function GeneratePage() {
+  const [userPrompt, setUserPrompt] = useState('')
   const [streamContent, setStreamContent] = useState('')
   const [isStreaming, setIsStreaming] = useState(false)
   const [generatedData, setGeneratedData] = useState<any[]>([])
@@ -63,6 +64,24 @@ export default function GeneratePage() {
   const [hasCompleted, setHasCompleted] = useState(false)
   const [rowCount, setRowCount] = useState(0)
   const hasStarted = isStreaming || streamContent.length > 0
+
+  // On page load, restore from session
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedPrompt = sessionStorage.getItem('userPrompt')
+      if (savedPrompt) setUserPrompt(savedPrompt)
+
+      const savedContent = sessionStorage.getItem('streamContent')
+      if (savedContent) setStreamContent(savedContent)
+    }
+  }, [])
+
+  const handlePromptChange = (val: string) => {
+    setUserPrompt(val)
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('userPrompt', val)
+    }
+  }
 
   const handleGenerate = async (prompt: string) => {
     setStreamContent('')
@@ -92,14 +111,29 @@ export default function GeneratePage() {
         if (done) break
         const chunk = decoder.decode(value, { stream: true })
         buffer += chunk
-        setStreamContent(prev => prev + chunk)
+        setStreamContent(prev => {
+          const updated = prev + chunk
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('streamContent', updated)
+          }
+          return updated
+        })
         const newLines = chunk.split('\n').filter(l => l.trim()).length
         lineCount += newLines
         setRowCount(Math.max(0, lineCount - 1))
       }
 
       const finalChunk = decoder.decode()
-      if (finalChunk) { buffer += finalChunk; setStreamContent(prev => prev + finalChunk) }
+      if (finalChunk) { 
+        buffer += finalChunk; 
+        setStreamContent(prev => {
+          const updated = prev + finalChunk
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('streamContent', updated)
+          }
+          return updated
+        })
+      }
 
       const jsonData = csvToJSON(buffer)
       const parsedHeaders = jsonData.length > 0 ? Object.keys(jsonData[0]) : []
@@ -161,7 +195,12 @@ export default function GeneratePage() {
               {/* Form card */}
               <div className="w-full max-w-2xl">
                 <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6 sm:p-8">
-                  <GenerateInput onSubmit={handleGenerate} isLoading={isStreaming} />
+                  <GenerateInput 
+                    onSubmit={handleGenerate} 
+                    isLoading={isStreaming} 
+                    initialPrompt={userPrompt}
+                    onPromptChange={handlePromptChange}
+                  />
 
                   <div className="mt-6 pt-5 border-t border-gray-100 flex items-start gap-2.5">
                     <Sparkles className="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" />
@@ -205,7 +244,12 @@ export default function GeneratePage() {
                 transition={{ duration: 0.4, ease: 'easeOut' }}
               >
                 <div className="sticky top-6 rounded-2xl border border-gray-200 bg-white shadow-sm p-6 sm:p-8">
-                  <GenerateInput onSubmit={handleGenerate} isLoading={isStreaming} />
+                  <GenerateInput 
+                    onSubmit={handleGenerate} 
+                    isLoading={isStreaming} 
+                    initialPrompt={userPrompt}
+                    onPromptChange={handlePromptChange}
+                  />
                   <div className="mt-5 pt-4 border-t border-gray-100 flex items-start gap-2">
                     <Sparkles className="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" />
                     <p className="text-[11px] text-gray-400 leading-relaxed">

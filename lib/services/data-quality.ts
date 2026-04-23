@@ -193,10 +193,10 @@ function detectDataType(values: any[]): string {
   for (const value of values.slice(0, 100)) {
     const str = String(value).trim().toLowerCase()
 
-    // Strict boolean — only exact matches
+    // Strict boolean  - only exact matches
     if (/^(true|false|yes|no)$/.test(str)) {
       booleanCount++
-    // Strict numeric — must be a valid number, not just contain digits
+    // Strict numeric - must be a valid number, not just contain digits
     } else if (!isNaN(Number(str)) && str !== '') {
       numericCount++
     // Date patterns
