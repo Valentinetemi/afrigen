@@ -82,7 +82,7 @@ export async function registerDataset({
           rowCount,
           country,
           domain,
-          generatedBy: 'Gemini 2.0 Flash',
+          generatedBy: 'Gemini-flash-latest',
           groundedBy: 'WHO Global Health Observatory + World Bank',
         }
       })
