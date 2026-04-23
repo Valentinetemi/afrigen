@@ -55,7 +55,7 @@ export async function registerDataset({
     // To make sure database and schema exist
     await ensureDatabaseExists()
 
-    // Step 2 — register the table
+    // This is to register the table
     const tableName = name
       .toLowerCase()
       .replace(/[^a-z0-9]/g, '_')
