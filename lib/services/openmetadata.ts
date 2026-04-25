@@ -119,12 +119,6 @@ export async function registerDataset({
           dataLength: 256,
           description: `Column: ${col}`,
         })),
-        extension: {
-          fidelityScore,
-          rowCount,
-          domain,
-          country,
-        },
         tags: [{ tagFQN: 'Tier.Tier3' }]
       }),
     })

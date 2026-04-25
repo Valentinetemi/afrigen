@@ -84,7 +84,7 @@ export default function DataQualityPage() {
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">Data Quality</h1>
                   <p className="text-sm text-gray-500 mt-1.5 max-w-lg">
-                    Upload your dataset and get an instant quality report — PII detection, completeness scores, and an AI-powered model readiness verdict.
+                    Upload your dataset and get an instant quality report - PII detection, completeness scores, and an AI-powered model readiness verdict.
                   </p>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
