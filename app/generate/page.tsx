@@ -80,15 +80,15 @@ export default function GeneratePage() {
   const hasStarted = isStreaming || streamContent.length > 0;
 
   // On page load, restore from session
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedPrompt = sessionStorage.getItem("userPrompt");
-      if (savedPrompt) setUserPrompt(savedPrompt);
+ // useEffect(() => {
+   // if (typeof window !== "undefined") {
+     // const savedPrompt = sessionStorage.getItem("userPrompt");
+      //if (savedPrompt) setUserPrompt(savedPrompt);
 
-      const savedContent = sessionStorage.getItem("streamContent");
-      if (savedContent) setStreamContent(savedContent);
-    }
-  }, []);
+      //const savedContent = sessionStorage.getItem("streamContent");
+      //if (savedContent) setStreamContent(savedContent);
+    //}
+  //}, []);
 
   const handlePromptChange = (val: string) => {
     setUserPrompt(val);
@@ -155,11 +155,13 @@ export default function GeneratePage() {
       const country = extractCountry(prompt);
 
       // Calculate real fidelity score
-      const fidelityRes = await fetch("/api/fidelity", {
+      const fidelityRes = await fetch("/api/fidelity",
+         {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ csvData: buffer, prompt, domain, country }),
       });
+
       const { score, justification } = await fidelityRes.json();
 
       setHeaders(parsedHeaders);

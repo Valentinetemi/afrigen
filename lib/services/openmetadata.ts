@@ -108,7 +108,7 @@ export async function registerDataset({
       body: JSON.stringify({
         name: tableName,
         displayName: name,
-        description: `Synthetic ${domain} dataset for ${country}. Generated from prompt: "${prompt}". Grounded in WHO Global Health Observatory and World Bank statistics.`,
+        description: `Synthetic ${domain} dataset for ${country}. Generated from prompt: "${prompt}". Fidelity Score: ${fidelityScore}%. Grounded in WHO Global Health Observatory and World Bank statistics.`,
         databaseSchema: 'afrigen-synthetic.default.synthetic_datasets',
         columns: columns.map((col) => ({
           name: col.toLowerCase().replace(/[^a-z0-9]/g, '_'),
@@ -116,16 +116,7 @@ export async function registerDataset({
           dataLength: 256,
           description: `Column: ${col}`,
         })),
-        tags: [{ tagFQN: 'Tier.Tier3' }],
-        extension: {
-          fidelityScore,
-          rowCount,
-          country,
-          domain,
-          generatedBy: 'gemini-2.0-flash',
-          groundedBy: 'WHO Global Health Observatory + World Bank Open Data',
-          afrigenVersion: '1.0.0',
-        },
+        tags: [{ tagFQN: 'Tier.Tier3' }]
       }),
     })
 
