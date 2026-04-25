@@ -119,7 +119,7 @@ export async function registerDataset({
           dataLength: 256,
           description: `Column: ${col}`,
         })),
-          
+
         tags: [{ tagFQN: 'Tier.Tier3' }]
       }),
     })
@@ -149,7 +149,7 @@ async function postLineage(tableId: string, domain: string) {
         edge: {
           fromEntity: {
             type: 'pipeline',
-            fqn: 'afrigen-synthetic.gemini-generator',
+            fqn: 'afrigen-pipelines.gemini-generator',
           },
           toEntity: {
             type: 'table',
