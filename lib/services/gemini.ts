@@ -254,7 +254,7 @@ export async function calculateFidelityScore(
     return (filled / total) * 100
   }
 
-  function sampleRows(csv: string, n = 20) {
+  function sampleRows(csv: string, n = 200) {
     const rows = csv.split('\n').filter(Boolean)
     const header = rows[0]
     const body = rows.slice(1)
@@ -262,7 +262,7 @@ export async function calculateFidelityScore(
     const shuffled = body.sort(() => 0.5 - Math.random())
     return [header, ...shuffled.slice(0, n)].join('\n')
   }
-  const rows = sampleRows(csvData, 20)
+  const rows = sampleRows(csvData, 50)
 
   const { text } = await generateText({
     model,
@@ -278,10 +278,12 @@ Here are the first 20 rows of the generated data:
 ${rows}
 
 Score this dataset's fidelity from 0-100 based on:
-- Are names culturally accurate for ${country}? (25 pts)
-- Do geographic locations match real ${country} regions? (25 pts)  
-- Do distributions match real-world patterns for ${domain} in ${country}? (25 pts)
-- Are values statistically realistic for this African context? (25 pts)
+- Do feature relationships make sense? (40 pts)
+- Are distributions realistic (not uniform/random)? (30 pts)
+- Are risk factors consistent across rows? (20 pts)
+- Is there logical coherence (no contradictions)? (10 pts)
+- If the data looks generally well-structured and realistic, bias toward 70-90 range
+- Only score below 60 if you see clear contradictions or random distributions
 
 Return ONLY valid JSON, nothing else:
 {"score": <number>, "justification": "<one sentence explanation>"}`,

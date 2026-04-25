@@ -80,14 +80,14 @@ export default function GeneratePage() {
   const hasStarted = isStreaming || streamContent.length > 0;
 
   // On page load, restore from session
- // useEffect(() => {
-   // if (typeof window !== "undefined") {
-     // const savedPrompt = sessionStorage.getItem("userPrompt");
+  //useEffect(() => {
+    //if (typeof window !== "undefined") {
+      //const savedPrompt = sessionStorage.getItem("userPrompt");
       //if (savedPrompt) setUserPrompt(savedPrompt);
 
       //const savedContent = sessionStorage.getItem("streamContent");
       //if (savedContent) setStreamContent(savedContent);
-    //}
+   // }
   //}, []);
 
   const handlePromptChange = (val: string) => {
