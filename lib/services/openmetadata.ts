@@ -9,6 +9,9 @@ const headers = {
 // Created the AfriGen service
 export async function createAfriGenService() {
   try {
+    // Ensure custom attributes exist for tables
+    await ensureCustomAttributes()
+
     // First to check if it already exists
     const check = await fetch(`${OM_BASE}/api/v1/services/databaseServices/name/afrigen-synthetic`, {
       headers,
@@ -116,6 +119,12 @@ export async function registerDataset({
           dataLength: 256,
           description: `Column: ${col}`,
         })),
+        extension: {
+          fidelityScore,
+          rowCount,
+          domain,
+          country,
+        },
         tags: [{ tagFQN: 'Tier.Tier3' }]
       }),
     })
@@ -171,7 +180,7 @@ async function postLineage(tableId: string, domain: string) {
 export async function getRegisteredDatasets() {
   try {
     const res = await fetch(
-      `${OM_BASE}/api/v1/tables?databaseSchema=afrigen-synthetic.default.synthetic_datasets&lim it=25`,
+      `${OM_BASE}/api/v1/tables?databaseSchema=afrigen-synthetic.default.synthetic_datasets&limit=25&fields=extension`,
       { headers }
     )
     const data = await res.json()
@@ -195,5 +204,39 @@ export async function getDatasetByName(tableName: string) {
   } catch (err) {
     console.error('[OpenMetadata] Failed to fetch dataset:', err)
     return null
+  }
+}
+
+async function ensureCustomAttributes() {
+  const attributes = [
+    { name: 'fidelityScore', type: 'number', description: 'AI Fidelity Score (0-100)' },
+    { name: 'rowCount', type: 'number', description: 'Total number of rows generated' },
+    { name: 'domain', type: 'string', description: 'Dataset domain (Health, Finance, etc.)' },
+    { name: 'country', type: 'string', description: 'Target African country' },
+  ]
+
+  for (const attr of attributes) {
+    try {
+      // Get the type ID for 'table'
+      const typeRes = await fetch(`${OM_BASE}/api/v1/metadata/types/name/table`, { headers })
+      const typeData = await typeRes.json()
+      
+      if (!typeData.id) continue
+
+      await fetch(`${OM_BASE}/api/v1/metadata/types/${typeData.id}/customAttribute`, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify({
+          name: attr.name,
+          description: attr.description,
+          attributeType: {
+            name: attr.type === 'number' ? 'integer' : 'string',
+            type: 'type',
+          },
+        }),
+      })
+    } catch (err) {
+      console.error(`[OpenMetadata] Failed to create custom attribute ${attr.name}:`, err)
+    }
   }
 }
