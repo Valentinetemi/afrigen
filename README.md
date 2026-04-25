@@ -19,13 +19,13 @@ AfriGen is an AI-powered synthetic data infrastructure platform that:
 
 1. **Fetches real statistics** from WHO Global Health Observatory and World Bank 
    Open Data for the requested country and domain
-2. **Generates synthetic datasets** using Gemini AI — grounded in real African 
+2. **Generates synthetic datasets** using Gemini AI - grounded in real African 
    statistics, not random values
 3. **Scores every dataset** with a fidelity algorithm that measures data quality 
    against real-world distributions
 4. **Registers every dataset** automatically in OpenMetadata with full schema, 
    lineage, and governance metadata
-5. **Validates datasets** for model readiness — completeness, duplicates, PII detection
+5. **Validates datasets** for model readiness - completeness, duplicates, PII detection
 
 ## 🏗️ Architecture
 WHO API + World Bank API
@@ -61,12 +61,12 @@ Every generated dataset is scored 0–100 using a two-layer algorithm:
 **Layer 1 — Gemini AI Evaluation (80% of score)**
 
 Gemini evaluates 50 randomly sampled rows against 4 criteria:
-- Feature relationship coherence — do the columns make sense together? (40 pts)
-- Realistic distributions — are values varied, not uniform or random? (30 pts)  
-- Risk factor consistency — do risk indicators align logically? (20 pts)
-- Logical coherence — are there contradictions across rows? (10 pts)
+- Feature relationship coherence - do the columns make sense together? (40 pts)
+- Realistic distributions - are values varied, not uniform or random? (30 pts)  
+- Risk factor consistency - do risk indicators align logically? (20 pts)
+- Logical coherence - are there contradictions across rows? (10 pts)
 
-**Layer 2 — Completeness Check (20% of score)**
+**Layer 2 - Completeness Check (20% of score)**
 
 A statistical completeness function scans every cell in the full dataset:
 
@@ -95,9 +95,9 @@ This penalizes missing values even when AI-evaluated rows look good.
 Before Gemini generates a single row, AfriGen fetches real statistics for the 
 requested country and domain from:
 
-- **WHO Global Health Observatory** — disease prevalence, mortality rates, 
+- **WHO Global Health Observatory** - disease prevalence, mortality rates, 
   health indicators
-- **World Bank Open Data** — population statistics, demographic distributions, 
+- **World Bank Open Data** - population statistics, demographic distributions, 
   economic indicators
 
 These real statistics become ground truth constraints passed directly to Gemini 
@@ -115,7 +115,7 @@ Every generated dataset is automatically:
 - Tagged with **Tier3 governance tag**
 - Stored with a complete **description** including domain, country, fidelity score,
   and the exact prompt used to generate it
-- Tracked with **lineage** — the Gemini AI Generator pipeline is registered as the 
+- Tracked with **lineage** - the Gemini AI Generator pipeline is registered as the 
   source, with an edge connecting it to every output table
 - Discoverable in the **AfriGen Catalog** which pulls live from OpenMetadata API
 
@@ -136,7 +136,7 @@ afrigen-pipelines (Pipeline Service - CustomPipeline)
 | Layer | Technology |
 |---|---|
 | Frontend | Next.js 14, TypeScript, Tailwind CSS, Framer Motion |
-| AI Generation | Google Gemini AI (gemini-2.0-flash) |
+| AI Generation | Google Gemini AI (gemini-flash-latest) |
 | Data Sources | WHO Global Health Observatory, World Bank Open Data |
 | Governance | OpenMetadata REST API v1 |
 | Streaming | Next.js Route Handlers with ReadableStream |
@@ -146,7 +146,7 @@ afrigen-pipelines (Pipeline Service - CustomPipeline)
 ### Prerequisites
 - Node.js 18+
 - Docker Desktop (for OpenMetadata)
-- Gemini API Key — [get one free here](https://aistudio.google.com)
+- Gemini API Key - [get one free here](https://aistudio.google.com)
 
 ### 1. Clone the repo
 
@@ -179,7 +179,7 @@ docker compose -f docker-compose.yml up --detach
 ```
 
 Wait 7-8 minutes for all containers to start, then open:
-**http://localhost:8585** — login with `admin@open-metadata.org` / `admin`
+**http://localhost:8585** - login with `admin@open-metadata.org` / `admin`
 
 Get your bot token:
 - Go to **Settings → Bots → ingestion-bot → copy the JWT token**
@@ -221,13 +221,13 @@ afrigen/
 
 ## 🌟 What Makes AfriGen Different
 
-- Not just a data generator — a full **data infrastructure platform**
+- Not just a data generator - It is a full **data infrastructure platform**
 - Real statistics from **WHO and World Bank** ground every dataset
-- **Automatic governance** — every dataset is cataloged, tagged, and lineage-tracked
+- **Automatic governance** - every dataset is cataloged, tagged, and lineage-tracked
 - **Fidelity scoring** tells you exactly how trustworthy your data is before training
 - Built specifically for **African ML engineers** who have been underserved by 
   existing tools
 
 ## 📄 License
 
-MIT — built with 🌍 for Africa
+MIT - built with ❤️ for Africa
