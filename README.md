@@ -200,25 +200,6 @@ http://localhost:3000
 
 Generate your first African dataset. Watch it appear in OpenMetadata automatically.
 
-## 📁 Project Structure
-afrigen/
-├── app/
-│   ├── api/
-│   │   ├── generate/      # Gemini streaming generation
-│   │   ├── fidelity/      # Fidelity scoring engine
-│   │   ├── metadata/      # OpenMetadata registration
-│   │   ├── catalog/       # Fetch datasets from OpenMetadata
-│   │   └── setup-om/      # Initialize OpenMetadata entities
-│   ├── generate/          # Dataset generation page
-│   ├── catalog/           # Dataset catalog page
-│   └── data-quality/      # Data quality validation page
-├── lib/
-│   └── services/
-│       ├── openmetadata.ts # Full OpenMetadata integration
-│       └── gemini.ts       # Gemini AI + fidelity scoring
-└── afrigen-data-platform/
-└── docker-compose.yml  # OpenMetadata local setup
-
 ## 🌟 What Makes AfriGen Different
 
 - Not just a data generator - It is a full **data infrastructure platform**
