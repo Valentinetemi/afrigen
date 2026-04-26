@@ -2,7 +2,7 @@
 
 > Generate. Govern. Validate. Built for African ML engineers.
 
-![AfriGen Demo](https://youtu.be/nggaI87IDts)
+## AfriGen Demo[https://youtu.be/nggaI87IDts]
 
 ## 🌐 Live Demo [https://afrigen-gtht.onrender.com](https://afrigen-gtht.onrender.com)
 
