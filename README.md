@@ -22,15 +22,26 @@ AfriGen fixes this.
 
 AfriGen is an AI-powered synthetic data infrastructure platform that:
 
-1. **Fetches real statistics** from WHO Global Health Observatory and World Bank 
-   Open Data for the requested country and domain
-2. **Generates synthetic datasets** using Gemini AI - grounded in real African 
-   statistics, not random values
-3. **Scores every dataset** with a fidelity algorithm that measures data quality 
-   against real-world distributions
-4. **Registers every dataset** automatically in OpenMetadata with full schema, 
-   lineage, and governance metadata
-5. **Validates datasets** for model readiness - completeness, duplicates, PII detection
+1. **Fetches real statistics** from WHO Global Health Observatory and 
+   World Bank Open Data for the requested country and domain
+
+2. **Generates synthetic datasets** using Gemini AI — grounded in real 
+   African statistics, not random values
+
+3. **Scores every dataset** with a fidelity algorithm that measures data 
+   quality against real-world distributions
+
+4. **Registers every dataset** automatically in OpenMetadata with full 
+   schema, lineage, and governance metadata
+
+5. **Catalog page** — pulls live from OpenMetadata API, every generated 
+   dataset is discoverable with fidelity scores, domain, country, and 
+   column count
+
+6. **Data Quality page** — validates every dataset before it touches a 
+   training pipeline: completeness check, duplicate detection, PII 
+   scanning, model readiness score, and AI-powered recommendations 
+   from Gemini
 
 ## 🏗️ Architecture
 WHO API + World Bank API
