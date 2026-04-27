@@ -20,17 +20,13 @@ AfriGen fixes this.
 
 ## 🧠 What AfriGen Does
 
-AfriGen is an AI-powered synthetic data infrastructure platform that turns real-world African statistics into validated, production-ready datasets for machine learning.
+AfriGen transforms real-world African statistics into validated, production-ready synthetic datasets for machine learning.
 
-It starts by pulling real statistical data from the WHO Global Health Observatory and World Bank Open Data based on a selected country and domain. These real-world distributions are then used as grounding signals for Gemini AI, which generates synthetic datasets that reflect actual African health and demographic realities rather than random or generic patterns.
+It uses World Health Organization (WHO) Global Health Observatory and World Bank data to ground Gemini AI generation in real statistical distributions, ensuring outputs reflect actual African health and demographic realities instead of random synthetic patterns.
 
-Each generated dataset is then evaluated through a fidelity scoring system that measures how closely it aligns with real-world statistical distributions, ensuring the output is not just plausible, but statistically consistent.
+Each dataset is then scored for statistical fidelity, automatically registered in OpenMetadata with full lineage and schema tracking, and made discoverable through a live catalog.
 
-Once validated, every dataset is automatically registered in OpenMetadata with full schema definitions, lineage tracking, and governance metadata, making it fully auditable and discoverable.
-
-Through the platform, users can browse a live catalog of all generated datasets, enriched with fidelity scores, domain information, country context, and structural metadata such as column composition.
-
-Before any dataset is used for training, AfriGen runs a data quality layer that checks completeness, detects duplicates, scans for sensitive information, and evaluates model readiness, while also providing AI-generated recommendations from Gemini to improve dataset quality.
+Before any dataset reaches a training pipeline, it passes through a data quality layer that checks completeness, detects anomalies, scans for sensitive data, and evaluates model readiness with AI-assisted recommendations.
 
 ## 🏗️ Architecture
 WHO API + World Bank API
