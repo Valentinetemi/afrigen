@@ -121,16 +121,18 @@ Every generated dataset is automatically:
 - Discoverable in the **AfriGen Catalog** which pulls live from OpenMetadata API
 
 ### OpenMetadata Entity Structure
+
 afrigen-synthetic (Database Service - CustomDatabase)
 └── default (Database)
-└── synthetic_datasets (Schema)
-├── healthcare_dataset__nigeria (Table)
-├── malaria_dataset__kano (Table)
-└── ...
+    └── synthetic_datasets (Schema)
+        ├── healthcare_dataset__nigeria (Table)
+        ├── malaria_dataset__kano (Table)
+        └── ...
+
 afrigen-pipelines (Pipeline Service - CustomPipeline)
 └── gemini-generator (Pipeline)
-├── → healthcare_dataset__nigeria (Lineage Edge)
-└── → malaria_dataset__kano (Lineage Edge)
+    ├── → healthcare_dataset__nigeria (Lineage Edge)
+    └── → malaria_dataset__kano (Lineage Edge)
 
 ## Tech Stack
 
