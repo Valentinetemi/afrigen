@@ -122,17 +122,18 @@ Every generated dataset is automatically:
 
 ### OpenMetadata Entity Structure
 
-afrigen-synthetic (Database Service - CustomDatabase)
-└── default (Database)
-    └── synthetic_datasets (Schema)
-        ├── healthcare_dataset__nigeria (Table)
-        ├── malaria_dataset__kano (Table)
-        └── ...
+Database Service: afrigen-synthetic (CustomDatabase)
+  Database: default
+    Schema: synthetic_datasets
+      - healthcare_dataset__nigeria (Table)
+      - malaria_dataset__kano (Table)
+      - ...
 
-afrigen-pipelines (Pipeline Service - CustomPipeline)
-└── gemini-generator (Pipeline)
-    ├── → healthcare_dataset__nigeria (Lineage Edge)
-    └── → malaria_dataset__kano (Lineage Edge)
+Pipeline Service: afrigen-pipelines (CustomPipeline)
+  Pipeline: gemini-generator
+    Outputs:
+      - healthcare_dataset__nigeria (Lineage Edge)
+      - malaria_dataset__kano (Lineage Edge)
 
 ## Tech Stack
 
